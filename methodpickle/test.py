@@ -25,6 +25,7 @@ def factorial(x):
 class TestDefer(unittest.TestCase):
 
     def test_decorated(self):
+        """Test deferred methods via decorator."""
         a = test_method(1,3)
         b = test_method(3,4)
         b.run()
@@ -36,6 +37,7 @@ class TestDefer(unittest.TestCase):
         self.assertEqual(c.result, 81)
 
     def test_pickling(self):
+        """Test pickling & unpickling a function invocation."""
         a = another_method(11)
         a_str = pickle.dumps(a)
 
@@ -44,11 +46,13 @@ class TestDefer(unittest.TestCase):
         self.assertEqual(b.result, 121)
 
     def test_straightup(self):
+        """Test direct deferring of a function call."""
         d = defer(factorial, 4)
         r = d.run()
         self.assertEqual(d.result, 24)
 
     def test_classmethod(self):
+        """Test deferring a class method."""
         x = DeferredClass(5)
         d = defer(x.calc, 1)
         result = d.run()
