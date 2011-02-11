@@ -63,6 +63,7 @@ class MethodStore(object):
     def run(self, *args, **kwargs):
         """Load and run the method, passing the given args, and returning
         the result."""
+        method_class = None
         if not self._method:
             # Example for how to import taken from python docs
             if self._class_name:

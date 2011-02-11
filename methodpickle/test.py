@@ -1,13 +1,13 @@
 import unittest
 import pickle
 
-from mvp.defer import defer, Defer, MethodStore
+from methodpickle.defer import defer, deferred, MethodStore
 
-@Defer
+@deferred
 def test_method(a, b):
     return a+b
 
-@Defer
+@deferred
 def another_method(x):
     return x*x
 
