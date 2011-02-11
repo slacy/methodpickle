@@ -72,4 +72,21 @@ deferred.  Again, see the implementation or test.py for more details.
 Caveats
 -------
 
-* **foo**
+* **All arguments to functions must themselves be pickle-able.** This
+    includes 'self' for class method invocations
+
+* **Functions and classes must be at the module level.** Inner classes and
+    inner functions don't have an easy-to-discover import path, so all the
+    deferred functions should be at the top level of your module.  I'd
+    suggest putting them all in the same file (say, tasks.py)
+
+* **All method arguments are deepcopied at the time of the deferral.** Thus,
+    if you pass a very large datastructure to the deferral methods, it may
+    have a performance impact.  In addition, if you pass a mutable
+    datastructur (dict, list, etc.) then subsequent modifications will have
+    no effect.
+
+* **Watch out for double invocation of functions & methods**.  This is both
+    a feature and a caveat.  Once you pickle a function call, that value
+    could be unpickled and run more than once.  Watch out for anything that
+    has unexpected side effects!
