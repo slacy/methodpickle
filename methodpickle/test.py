@@ -62,9 +62,10 @@ class TestDefer(unittest.TestCase):
 class TestMethodStore(unittest.TestCase):
 
     def test_simple(self):
+        """Test loading a method by name."""
         # We have not loaded this method in this file, so we're testing the
         # dynamic loading capability of the MethodStore here.
-        loaded_method = MethodStore(module_name='mvp.defer.test_helper',
+        loaded_method = MethodStore(module_name='methodpickle.test_helper',
                                     method_name='a_method')
         result = loaded_method.run(2, 3)
         self.assertEqual(result, 6)
