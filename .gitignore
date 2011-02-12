@@ -1,3 +1,7 @@
 methodpickle.egg-info/
 *~
 *.pyc
+
+# Things created by setup.py that I don't want in git
+build/
+dist/
