@@ -17,6 +17,7 @@ class DeferredClass(object):
     def calc(self, other):
         return (self._x * self._x) + (other * other)
 
+
 def factorial(x):
     if x == 1: return 1
     return x * factorial(x-1)
