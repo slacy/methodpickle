@@ -116,6 +116,7 @@ class DeferredExecution(object):
         self._kwargs = deepcopy(kwargs)
         self._result = None  # Undefined
         self._run = False
+        self._context = {}
 
     def __getstate__(self):
         return {
@@ -127,8 +128,10 @@ class DeferredExecution(object):
     def __setstate__(self, data):
         self.__init__(data['stored_method'], *data['args'], **data['kwargs'])
 
-    def run(self):
+    def run(self, context=None):
         """Load and run the stored method, returning the result."""
+        if context:
+            self._context = context
         self._result = self._stored_method.run(*self._args, **self._kwargs)
         self._run = True
         return self._result
