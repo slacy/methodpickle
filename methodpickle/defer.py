@@ -100,10 +100,10 @@ class MethodStore(object):
             return self._method(*args, **kwargs)
 
     def __str__(self):
-        return "MethodStore(%s)" % ', '.join((self._module_name,
-                                              self._class_name,
-                                              self._method_name,
-                                              self._attr_name))
+        return "MethodStore(%s)" % ', '.join((str(self._module_name),
+                                              str(self._class_name),
+                                              str(self._method_name),
+                                              str(self._attr_name)))
 
 
 class DeferredExecution(object):
@@ -116,7 +116,6 @@ class DeferredExecution(object):
         self._kwargs = deepcopy(kwargs)
         self._result = None  # Undefined
         self._run = False
-        self._context = {}
 
     def __getstate__(self):
         return {
@@ -128,10 +127,8 @@ class DeferredExecution(object):
     def __setstate__(self, data):
         self.__init__(data['stored_method'], *data['args'], **data['kwargs'])
 
-    def run(self, context=None):
+    def run(self):
         """Load and run the stored method, returning the result."""
-        if context:
-            self._context = context
         self._result = self._stored_method.run(*self._args, **self._kwargs)
         self._run = True
         return self._result
@@ -142,6 +139,14 @@ class DeferredExecution(object):
         if not self._run:
             raise Exception("You must call run() before getting the result")
         return self._result
+
+    def __str__(self):
+        return "DeferredExecution(%s, %s, %s, %s, %s)" % (
+            str(self._stored_method),
+            str(self._args),
+            str(self._kwargs),
+            str(self._result),
+            str(self._run))
 
 
 class deferred(object):
