@@ -2,9 +2,6 @@ import sys
 from copy import deepcopy
 
 
-# class DefferedExecution(Model):
-#     mongo = MongoCollection(database='defer', collection='action')
-
 class MethodStore(object):
     """Store the module & method name of any method, even if it's not
     loaded.  Provides a simple helper to load & run the method.  This is
@@ -33,7 +30,7 @@ class MethodStore(object):
             self._attr_name = attr_name
         else:
             self._module_name = module_name
-            self._class_name = None
+            self._class_name = class_name
             self._method_name = method_name
             self._method_self = None
             self._attr_name = attr_name

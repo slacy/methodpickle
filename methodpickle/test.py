@@ -56,8 +56,13 @@ class TestDefer(unittest.TestCase):
         """Test deferring a class method."""
         x = DeferredClass(5)
         d = defer(x.calc, 1)
-        result = d.run()
-        self.assertEqual(d.result, 26)
+
+        d_str = pickle.dumps(d)
+        d_new = pickle.loads(d_str)
+
+        result = d_new.run()
+        self.assertEqual(result, 26)
+        self.assertEqual(d_new.result, 26)
 
 
 class TestMethodStore(unittest.TestCase):
